@@ -84,7 +84,8 @@ buildVscodeMarketplaceExtension {
 
   postPatch = ''
     substituteInPlace "out/extension.js" \
-      --replace '# Start the server\n' '${patch}'
+      --replace '# Start the server\n' '${patch}' \
+      --replace "wget --no-proxy" "wget --no-proxy --no-continue"
   '';
 
   meta = {
