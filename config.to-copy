@@ -1,0 +1,2 @@
+[include]
+	path = ../../.nixpkgs-config/config.base

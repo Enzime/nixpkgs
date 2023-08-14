@@ -1,0 +1,8 @@
+[revset-aliases]
+"trunk()" = "master@upstream"
+
+[core]
+fsmonitor = "watchman"
+
+[git]
+fetch = ["fork", "upstream"]

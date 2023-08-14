@@ -1,0 +1,23 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	precomposeUnicode = true
+[remote "fork"]
+	url = gh:Enzime/nixpkgs
+	fetch = +refs/heads/*:refs/remotes/fork/*
+[remote "upstream"]
+	url = ghro:NixOS/nixpkgs
+	fetch = +refs/heads/master:refs/remotes/upstream/master
+	fetch = +refs/heads/nixos-*:refs/remotes/upstream/nixos-*
+	fetch = +refs/heads/nixos-unstable:refs/remotes/upstream/nixos-unstable
+	fetch = +refs/heads/nixpkgs-unstable:refs/remotes/upstream/nixpkgs-unstable
+	tagopt = --no-tags
+[merge]
+	renamelimit = 100000
+[branch "master"]
+	remote = fork
+	merge = refs/heads/master
+[includeIf "gitdir:/Users/"]
+	path = config.macos
