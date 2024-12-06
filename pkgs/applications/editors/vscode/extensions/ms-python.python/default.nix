@@ -3,10 +3,13 @@
   vscode-utils,
   icu,
   python3,
+  stdenv,
   # When `true`, the python default setting will be fixed to specified.
   # Use version from `PATH` for default setting otherwise.
   # Defaults to `false` as we expect it to be project specific most of the time.
-  pythonUseFixed ? false,
+  # Defaults to `true` on macOS, as macOS has a `/usr/bin/python3` shim which isn't
+  # actually a Python interpreter as XCode Developer Tools aren't installed by default.
+  pythonUseFixed ? stdenv.isDarwin,
   # For updateScript
   writeScript,
   bash,
@@ -48,7 +51,7 @@ vscode-utils.buildVscodeMarketplaceExtension rec {
     + lib.optionalString pythonUseFixed ''
       # Patch `packages.json` so that nix's *python* is used as default value for `python.pythonPath`.
       substituteInPlace "./package.json" \
-        --replace "\"default\": \"python\"" "\"default\": \"${python3.interpreter}\""
+        --replace-fail "\"default\":\"python\"" "\"default\":\"${python3.interpreter}\""
     '';
 
   passthru.updateScript = writeScript "update" ''
