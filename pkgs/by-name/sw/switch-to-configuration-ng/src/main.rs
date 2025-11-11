@@ -1321,6 +1321,11 @@ won't take effect until you reboot the system.
         .unwrap_or_default();
 
     for (mountpoint, current_filesystem) in current_filesystems {
+        // Skip filesystem comparison if x-initrd.mount is present in options
+        if current_filesystem.options.contains("x-initrd.mount") {
+            continue;
+        }
+
         let current_is_automount = current_filesystem.options.contains("x-systemd.automount");
         let mount_unit = format!("{}.mount", libsystemd::unit::escape_path(&mountpoint));
         let automount_unit = format!("{}.automount", libsystemd::unit::escape_path(&mountpoint));
