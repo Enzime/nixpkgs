@@ -12,6 +12,7 @@
         "aarch64-darwin"
       ];
       perSystem = { config, pkgs, ... }: {
+        packages.river = pkgs.callPackage ./pkgs/river/package.nix { };
         packages.default = pkgs.writeShellApplication {
           name = "clone-nixpkgs";
           text = ''
